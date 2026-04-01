@@ -37,3 +37,20 @@ function calculate() {
         display.innerText = 'Error';
     }
 }
+function calculateRoot() {
+    try {
+        display.innerText = Math.sqrt(eval(display.innerText));
+    } catch {
+        display.innerText = "Error";
+    }
+}
+
+
+function calculate() {
+    try {
+        let expression = display.innerText.replace('%', '/100');
+        display.innerText = eval(expression);
+    } catch (error) {
+        display.innerText = 'Error';
+    }
+}
