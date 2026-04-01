@@ -85,3 +85,9 @@ body {
 .operator { color: var(--accent); font-weight: bold; }
 .equal { background: var(--accent); color: white; grid-row: span 2; border-radius: 30px; aspect-ratio: auto; }
 .zero { grid-column: span 2; border-radius: 30px; aspect-ratio: auto; }
+.btn:hover {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 0 15px var(--accent); /* This gives it a soft floral glow */
+    transform: translateY(-2px); /* Makes buttons feel "bouncy" */
+}
