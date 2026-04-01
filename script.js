@@ -1,18 +1,15 @@
 const display = document.getElementById('display');
+const historyDisplay = document.getElementById('history');
 const themeBtn = document.getElementById('theme-toggle');
 
-// Theme Toggle Logic
+
 themeBtn.addEventListener('click', () => {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
-    if (currentTheme === 'dark') {
-        body.removeAttribute('data-theme');
-    } else {
-        body.setAttribute('data-theme', 'dark');
-    }
+    document.body.getAttribute('data-theme') === 'dark' 
+        ? document.body.removeAttribute('data-theme') 
+        : document.body.setAttribute('data-theme', 'dark');
 });
 
-// Calculator Logic
+
 function appendValue(input) {
     if (display.innerText === '0' || display.innerText === 'Error') {
         display.innerText = input;
@@ -23,34 +20,37 @@ function appendValue(input) {
 
 function clearDisplay() {
     display.innerText = '0';
+    historyDisplay.innerText = '';
 }
 
 function deleteLast() {
     display.innerText = display.innerText.slice(0, -1) || '0';
 }
 
+function calculateRoot() {
+    historyDisplay.innerText = `√(${display.innerText})`;
+    display.innerText = Math.sqrt(eval(display.innerText)).toFixed(4);
+}
+
 function calculate() {
     try {
-        // eval is okay for a simple client-side project
-        display.innerText = eval(display.innerText);
-    } catch (error) {
-        display.innerText = 'Error';
-    }
-}
-function calculateRoot() {
-    try {
-        display.innerText = Math.sqrt(eval(display.innerText));
+        let expression = display.innerText.replace('%', '/100');
+        let result = eval(expression);
+        historyDisplay.innerText = expression + " =";
+        display.innerText = result;
     } catch {
         display.innerText = "Error";
     }
 }
 
-
-function calculate() {
-    try {
-        let expression = display.innerText.replace('%', '/100');
-        display.innerText = eval(expression);
-    } catch (error) {
-        display.innerText = 'Error';
-    }
+function createLeaf() {
+    const container = document.getElementById('leaf-container');
+    const leaf = document.createElement('div');
+    leaf.classList.add('leaf');
+    leaf.style.left = Math.random() * 100 + 'vw';
+    leaf.style.animationDuration = Math.random() * 5 + 5 + 's';
+    leaf.style.width = leaf.style.height = Math.random() * 15 + 10 + 'px';
+    container.appendChild(leaf);
+    setTimeout(() => leaf.remove(), 10000);
 }
+setInterval(createLeaf, 900);
